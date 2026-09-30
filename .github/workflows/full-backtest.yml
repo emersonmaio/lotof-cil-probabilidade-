@@ -1,0 +1,26 @@
+name: full-8plus2-backtest
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 1"
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download historical Lotofacil data
+        run: |
+          mkdir -p data results
+          curl -L --fail --retry 3 -o data/lotofacil.csv https://valorfinal.com.br/dados/loterias/lotofacil.csv
+      - name: Validate and run 20 seeds x 3 windows
+        run: |
+          python src/backtest_8plus2.py --csv data/lotofacil.csv --out results/smoke.csv --start 500 --end 3792 --window 100
+          python src/multi_backtest_8plus2.py --csv data/lotofacil.csv --out results/multi.csv --start 500 --end 3792 --seeds 20 --windows 50,100,200
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: lotofacil-8plus2-results
+          path: results/*.csv
