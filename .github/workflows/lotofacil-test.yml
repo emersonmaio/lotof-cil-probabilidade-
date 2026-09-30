@@ -1,0 +1,38 @@
+name: Lotofacil - teste completo
+
+on:
+  workflow_dispatch:
+    inputs:
+      window:
+        description: "Janela historica para frequencia/recencia"
+        required: true
+        default: "100"
+  push:
+    paths:
+      - "src/**"
+      - "data/**"
+      - ".github/workflows/lotofacil-test.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar codigo
+        uses: actions/checkout@v4
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Restaurar base historica
+        run: |
+          gunzip -c data/lotofacil.csv.gz > data/lotofacil.csv
+          wc -l data/lotofacil.csv
+          head -n 8 data/lotofacil.csv
+      - name: Executar validacao e holdout
+        run: |
+          python src/experiment.py --csv data/lotofacil.csv --out results --window ${{ inputs.window || '100' }}
+      - name: Publicar resultados
+        uses: actions/upload-artifact@v4
+        with:
+          name: lotofacil-resultados
+          path: results/
