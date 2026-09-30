@@ -19,11 +19,12 @@ jobs:
         run: |
           mkdir -p data
           cp source-data/data/lotofacil.csv data/lotofacil.csv
+          printf '\n' >> data/lotofacil.csv
           cat >> data/lotofacil.csv <<'EOF'
           3790,27/09/2026,01,03,04,05,06,07,09,11,14,15,16,17,20,21,25
           3791,28/09/2026,01,02,04,06,08,09,11,12,13,14,15,16,19,24,25
           EOF
-          test "$(tail -n +2 data/lotofacil.csv | wc -l)" -eq 3791
+          test "$(tail -n +2 data/lotofacil.csv | grep -c '^[0-9]')" -eq 3791
           test "$(tail -n 1 data/lotofacil.csv | cut -d, -f1)" -eq 3791
       - name: Validar Python
         run: python -m py_compile src/experiment.py
