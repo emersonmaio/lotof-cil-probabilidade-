@@ -1,0 +1,27 @@
+name: Lotofacil Stage 2 - 8+2 coverage
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/stage2.py"
+      - "data/lotofacil.csv"
+      - ".github/workflows/stage2.yml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar numpy
+        run: python -m pip install --disable-pip-version-check numpy
+      - name: Validar e executar Stage 2
+        run: |
+          python -m py_compile src/stage2.py
+          python src/stage2.py --csv data/lotofacil.csv --out results
+      - uses: actions/upload-artifact@v4
+        with:
+          name: lotofacil-stage2-resultados
+          path: results/
