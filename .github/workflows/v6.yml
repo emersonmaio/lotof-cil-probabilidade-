@@ -1,4 +1,4 @@
-name: V6 probabilistic backtest
+name: V6 and V7 probabilistic backtests
 
 on:
   workflow_dispatch:
@@ -6,6 +6,8 @@ on:
     paths:
       - "src/v6_probabilistic.py"
       - "src/v6_stability.py"
+      - "src/v7_cooccurrence.py"
+      - "src/v7_stability.py"
       - "src/experiment.py"
       - "data/lotofacil.csv"
       - ".github/workflows/v6.yml"
@@ -20,5 +22,11 @@ jobs:
           python-version: "3.11"
       - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794
       - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794 --seeds 5
+      - run: python src/v7_cooccurrence.py --csv data/lotofacil.csv --out results/v7 --holdout-end 3794
+      - run: python src/v7_stability.py --csv data/lotofacil.csv --out results/v7 --holdout-end 3794 --seeds 5
+      - run: echo "=== V6 ==="
       - run: cat results/v6/v6_report.json
       - run: cat results/v6/v6_stability.json
+      - run: echo "=== V7 ==="
+      - run: cat results/v7/v7_report.json
+      - run: cat results/v7/v7_stability.json
