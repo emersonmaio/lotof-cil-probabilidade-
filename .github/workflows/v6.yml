@@ -1,0 +1,19 @@
+name: V6 probabilistic backtest
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/v6_probabilistic.py"
+      - "src/experiment.py"
+      - "data/lotofacil.csv"
+      - ".github/workflows/v6.yml"
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794
+      - run: cat results/v6/v6_report.json
