@@ -158,7 +158,7 @@ def main():
     p.add_argument("--holdout-start",type=int,default=3033); p.add_argument("--holdout-end",type=int,default=3794)
     p.add_argument("--seed",type=int,default=20261002); p.add_argument("--candidates",type=int,default=220)
     a=p.parse_args(); rows=load(a.csv); Path(a.out).mkdir(parents=True,exist_ok=True)
-    states=build_states(rows,a.validation-start if False else a.validation_start,a.holdout_end)
+    states=build_states(rows,a.validation_start,a.holdout_end)
     validation={k:metrics(evaluate(rows,a.validation_start,a.validation_end,k,a.seed,states,a.candidates)) for k in CONFIGS}
     selected=max(CONFIGS,key=lambda k:(validation[k]["13_plus"],validation[k]["mean_best"]))
     holdout=metrics(evaluate(rows,a.holdout_start,a.holdout_end,selected,a.seed+1000,states,a.candidates))
