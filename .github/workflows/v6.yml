@@ -6,11 +6,11 @@ on:
     paths:
       - "src/v6_probabilistic.py"
       - "src/v6_stability.py"
-      - "src/v7_cooccurrence.py"
-      - "src/v7_stability.py"
+      - "src/v7_1_optimized.py"
+      - "src/v7_1_stability.py"
       - "src/experiment.py"
       - "data/lotofacil.csv"
-      - ".github/workflows/v6.yml"\n      - "src/v7_1_optimized.py"\n      - "src/v7_1_stability.py"
+      - ".github/workflows/v6.yml"
 
 jobs:
   test:
@@ -22,11 +22,11 @@ jobs:
           python-version: "3.11"
       - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794
       - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794 --seeds 5
-      - run: python src/v7_cooccurrence.py --csv data/lotofacil.csv --out results/v7 --holdout-end 3794
-      - run: python src/v7_stability.py --csv data/lotofacil.csv --out results/v7 --holdout-end 3794 --seeds 5\n      - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794\n      - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794 --seeds 5
+      - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794
+      - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794 --seeds 5
       - run: echo "=== V6 ==="
       - run: cat results/v6/v6_report.json
       - run: cat results/v6/v6_stability.json
-      - run: echo "=== V7 ==="
-      - run: cat results/v7/v7_report.json
-      - run: cat results/v7/v7_stability.json\n      - run: echo "=== V7.1 ==="\n      - run: cat results/v7_1/v7_1_report.json\n      - run: cat results/v7_1/v7_1_stability.json
+      - run: echo "=== V7.1 ==="
+      - run: cat results/v7_1/v7_1_report.json
+      - run: cat results/v7_1/v7_1_stability.json
