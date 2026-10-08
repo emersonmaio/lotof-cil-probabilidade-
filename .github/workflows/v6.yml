@@ -8,6 +8,8 @@ on:
       - "src/v6_stability.py"
       - "src/v7_1_optimized.py"
       - "src/v7_1_stability.py"
+      - "src/v8_adaptive.py"
+      - "src/v8_stability.py"
       - "src/experiment.py"
       - "data/lotofacil.csv"
       - ".github/workflows/v6.yml"
@@ -24,9 +26,14 @@ jobs:
       - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794 --seeds 5
       - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794
       - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794 --seeds 5
+      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --candidates 1000
+      - run: python src/v8_stability.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --seeds 5 --candidates 1000
       - run: echo "=== V6 ==="
       - run: cat results/v6/v6_report.json
       - run: cat results/v6/v6_stability.json
       - run: echo "=== V7.1 ==="
       - run: cat results/v7_1/v7_1_report.json
       - run: cat results/v7_1/v7_1_stability.json
+      - run: echo "=== V8 ==="
+      - run: cat results/v8/v8_report.json
+      - run: cat results/v8/v8_stability.json
