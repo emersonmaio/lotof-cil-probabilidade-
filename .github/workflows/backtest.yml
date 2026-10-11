@@ -17,13 +17,13 @@ jobs:
           rows=[]
           with open("data/lotofacil.csv", encoding="utf-8-sig", newline="") as f:
               rows=list(csv.reader(f))
-          assert len(rows)-1 == 3791, f"quantidade: {len(rows)-1}"
+          assert len(rows)-1 == 3794, f"quantidade: {len(rows)-1}"
           ids=[int(r[0]) for r in rows[1:]]
-          assert ids == list(range(1,3792)), "IDs dos concursos nao estao completos"
+          assert ids == list(range(1,3795)), "IDs dos concursos nao estao completos"
           for r in rows[1:]:
               nums=[int(x) for x in r[2:17]]
               assert len(nums)==15 and len(set(nums))==15 and all(1<=x<=25 for x in nums)
-          print("Base validada: 3791 concursos, IDs 1-3791, 15 dezenas validas.")
+          print("Base validada: 3794 concursos, IDs 1-3794, 15 dezenas validas.")
           PY
       - name: Validar Python
         run: python -m py_compile src/experiment.py
