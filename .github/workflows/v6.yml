@@ -23,10 +23,10 @@ jobs:
         with:
           python-version: "3.11"
       - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794
-      - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794 --seeds 5
+      - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794 --seeds 3
       - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794
       - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794 --seeds 5
-      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --candidates 1000
+      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --candidates 300
       - run: python src/v8_stability.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --seeds 5 --candidates 1000
       - run: echo "=== V6 ==="
       - run: cat results/v6/v6_report.json
