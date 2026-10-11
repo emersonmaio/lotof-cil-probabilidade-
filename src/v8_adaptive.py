@@ -34,7 +34,7 @@ def make_candidates(indiv,pair,cfg,rng,n):
     while len(out)<n:
         g=weighted_game(indiv,rng)
         if g in seen: continue
-        seen.add(g); out.append((candidate_score(g,indiv,pair,cfg),g,mask_game(g)))
+        seen.add(g); out.append((candidate_score(g,indiv,pair,cfg),g,mask_game(g),game_pair_ids(g)))
     return out
 
 def choose10(candidates,pair,cfg):
@@ -44,15 +44,14 @@ def choose10(candidates,pair,cfg):
     chosen=[]; covered=set()
     for _ in range(10):
         best=None; best_u=-1e99
-        for score,g,m in candidates:
+        for score,g,m,ids in candidates:
             if any(m==x[2] for x in chosen): continue
             overlap=sum((m&x[2]).bit_count() for x in chosen)
-            ids=game_pair_ids(g)
             novelty=sum(max(0.0,pair[i]) for i in ids if i not in covered)
             positive=sum(max(0.0,pair[i]) for i in ids)
             u=score-cfg["overlap_penalty"]*overlap+cfg["pair_novelty"]*novelty+0.03*positive
-            if u>best_u: best_u=u; best=(score,g,m)
-        chosen.append(best); covered.update(game_pair_ids(best[1]))
+            if u>best_u: best_u=u; best=(score,g,m,ids)
+        chosen.append(best); covered.update(best[3])
     return chosen
 
 def evaluate(rows,start,end,config,seed,states,candidates_n=1000):
