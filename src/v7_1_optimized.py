@@ -61,7 +61,7 @@ def score_state(i,cfg,numpref,pairpref,last):
             lo=max(0,i-w)
             count=numpref[ni][i]-numpref[ni][lo]
             fs += weight*(count+1)/(w+2)
-        lag=(i-last[ni][i]) if last[ni][i] else i+1
+        lag=(i-last[ni][i]+1) if last[ni][i] else i+1
         indiv[ni]=(1-cfg["recency_weight"])*fs + cfg["recency_weight"]/lag
     pair=[0.0]*300
     for pi,(a,b) in enumerate(PAIRS):
