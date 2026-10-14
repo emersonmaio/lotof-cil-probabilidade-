@@ -26,8 +26,8 @@ jobs:
       - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3794 --seeds 2
       - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794
       - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3794 --seeds 5
-      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --candidates 100
-      - run: python src/v8_stability.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --seeds 5 --candidates 1000
+      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --candidates 300
+      - run: python src/v8_stability.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3794 --seeds 5 --candidates 300
       - run: echo "=== V6 ==="
       - run: cat results/v6/v6_report.json
       - run: cat results/v6/v6_stability.json
