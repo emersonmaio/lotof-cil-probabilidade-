@@ -10,6 +10,7 @@ on:
       - "src/v7_1_stability.py"
       - "src/v8_adaptive.py"
       - "src/v8_stability.py"
+      - "src/freeze_portfolio.py"
       - "src/experiment.py"
       - "data/lotofacil.csv"
       - ".github/workflows/v6.yml"
@@ -37,3 +38,11 @@ jobs:
       - run: echo "=== V8 ==="
       - run: cat results/v8/v8_report.json
       - run: cat results/v8/v8_stability.json
+      - name: Congelar portfólios para o concurso 3808
+        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target 3808 --out results/frozen --seed 20261019 --candidates 300
+      - name: Salvar portfólios congelados como artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: portfolio-concurso-3808-congelado
+          path: results/frozen/concurso_3808_congelado.json
+          if-no-files-found: error
