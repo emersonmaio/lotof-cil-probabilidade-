@@ -38,3 +38,10 @@ Essa diferença é pequena e não demonstra, sozinha, uma vantagem preditiva rea
 5. Manter uma linha de base aleatória reproduzível e avaliar diferença média, distribuição de acertos e incerteza; não escolher parâmetros usando os resultados prospectivos acumulados.
 
 **Regra de integridade:** os concursos adicionados ao histórico só podem ser usados em avaliações futuras após os jogos prospectivos correspondentes terem sido congelados e pontuados.
+
+
+## Atualização prospectiva em 2026-10-22
+
+A base foi ampliada com os concursos 3808–3810, com dezenas conferidas nas páginas de resultados da CAIXA para 3808/3809 e em cobertura publicada em 21/10/2026 para 3810. Antes de qualquer conclusão, confirmar o concurso 3810 na página oficial da CAIXA.
+
+Correção de avaliação: o holdout do script `src/experiment.py` agora termina no último concurso presente na base, em vez de parar silenciosamente no concurso 3791. O workflow de modelos detecta o último ID da base e usa o próximo número como alvo para congelamento, impedindo o uso de resultados posteriores ao alvo.
