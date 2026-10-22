@@ -23,12 +23,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3807
-      - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end 3807 --seeds 2
-      - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3807
-      - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end 3807 --seeds 5
-      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3807 --candidates 300
-      - run: python src/v8_stability.py --csv data/lotofacil.csv --out results/v8 --holdout-end 3807 --seeds 5 --candidates 300
+      - name: Detectar ultimo concurso do histórico
+        run: echo "HOLDOUT_END=$(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1)" >> "$GITHUB_ENV"
+      - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end "$HOLDOUT_END"
+      - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end "$HOLDOUT_END" --seeds 2
+      - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end "$HOLDOUT_END"
+      - run: python src/v7_1_stability.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end "$HOLDOUT_END" --seeds 5
+      - run: python src/v8_adaptive.py --csv data/lotofacil.csv --out results/v8 --holdout-end "$HOLDOUT_END" --candidates 300
+      - run: python src/v8_stability.py --csv data/lotofacil.csv --out results/v8 --holdout-end "$HOLDOUT_END" --seeds 5 --candidates 300
       - run: echo "=== V6 ==="
       - run: cat results/v6/v6_report.json
       - run: cat results/v6/v6_stability.json
@@ -38,11 +40,11 @@ jobs:
       - run: echo "=== V8 ==="
       - run: cat results/v8/v8_report.json
       - run: cat results/v8/v8_stability.json
-      - name: Congelar portfólios para o concurso 3808
-        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target 3808 --out results/frozen --seed 20261019 --candidates 300
+      - name: Congelar portfólios para o próximo concurso
+        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$((HOLDOUT_END + 1))" --out results/frozen --seed 20261019 --candidates 300
       - name: Salvar portfólios congelados como artefato
         uses: actions/upload-artifact@v4
         with:
-          name: portfolio-concurso-3808-congelado
-          path: results/frozen/concurso_3808_congelado.json
+          name: portfolio-proximo-concurso
+          path: results/frozen/concurso_${{ env.HOLDOUT_END }}_congelado.json
           if-no-files-found: error
