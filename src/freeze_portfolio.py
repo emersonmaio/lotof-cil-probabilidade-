@@ -17,7 +17,11 @@ def load_rows(path):
             if len(draw)!=15 or len(set(draw))!=15 or any(n<1 or n>25 for n in draw):
                 raise ValueError(f"Resultado inválido no concurso {contest}")
             rows.append((contest, draw, sum(1 << (n-1) for n in draw)))
-    return sorted(rows)
+    rows.sort()
+    ids=[c for c,_,_ in rows]
+    if ids != list(range(1, ids[-1] + 1)):
+        raise ValueError("Histórico incompleto ou com concursos duplicados; congelamento cancelado.")
+    return rows
 
 def main():
     p=argparse.ArgumentParser()
@@ -49,7 +53,12 @@ def main():
         indiv,pair=score_state(i,cfg_params,numpref,pairpref,last)
         candidates=make_candidates(indiv,pair,cfg_params,rng,a.candidates)
         games["V8-"+cfg]=[list(item[1]) for item in choose10(candidates,pair,cfg_params)]
-    games["ALEATORIO"]=[sorted(rng.sample(range(1,26),15)) for _ in range(10)]
+    random_games=[]; random_seen=set()
+    while len(random_games)<10:
+        game=tuple(sorted(rng.sample(range(1,26),15)))
+        if game not in random_seen:
+            random_seen.add(game); random_games.append(list(game))
+    games["ALEATORIO"]=random_games
     record={
       "target_contest":a.target,
       "history_through":rows[-1][0],
