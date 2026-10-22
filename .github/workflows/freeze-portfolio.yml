@@ -16,11 +16,13 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Detectar próximo concurso
+        run: echo "TARGET_CONTEST=$(( $(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1) + 1 ))" >> "$GITHUB_ENV"
       - name: Generate frozen portfolio using only past contests
-        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$(( $(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1) + 1 )) --out results/frozen --seed 20261019 --candidates 300
+        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$TARGET_CONTEST" --out results/frozen --seed 20261019 --candidates 300
       - name: Upload immutable pre-draw record
         uses: actions/upload-artifact@v4
         with:
           name: portfolio-proximo-concurso
-          path: results/frozen/concurso_*.json
+          path: results/frozen/concurso_${{ env.TARGET_CONTEST }}_congelado.json
           if-no-files-found: error
