@@ -111,7 +111,10 @@ def main():
     p.add_argument("--csv",required=True); p.add_argument("--out",default="results")
     p.add_argument("--window",type=int,default=100); a=p.parse_args()
     rows=load_lotofacil(a.csv)
-    splits={"validation":(2275,3032),"holdout":(3033,3791)}
+    last_contest=rows[-1][0]
+    if last_contest < 3033:
+        raise ValueError(f"Historico insuficiente para holdout: ultimo concurso {last_contest}")
+    splits={"validation":(2275,3032),"holdout":(3033,last_contest)}
     strategies=["random10","freq8_cov2","blend8_cov2","freq8_inv2","blend8_inv2"]
     Path(a.out).mkdir(parents=True,exist_ok=True); all_rows=[]
     for split,(start,end) in splits.items():
@@ -122,11 +125,11 @@ def main():
         fields=list(all_rows[0].keys()); w=csv.DictWriter(f,fieldnames=fields); w.writeheader(); w.writerows(all_rows)
     with open(Path(a.out)/"README_RESULTS.md","w",encoding="utf-8") as f:
         f.write("# Resultado do backtest\n\n")
-        f.write("Base temporal: concursos 1-3791. Para cada alvo, somente concursos anteriores sao usados.\n\n")
+        f.write(f"Base temporal: concursos 1-{rows[-1][0]}. Para cada alvo, somente concursos anteriores sao usados.\n\n")
         f.write("| split | estrategia | 15 | 14+ | 13+ | 12+ | 11+ | media | mediana | DP | minimo | maximo |\n|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|\n")
         for r in all_rows:
             f.write(f"| {r['split']} | {r['strategy']} | {r['15']} | {r['14_plus']} | {r['13_plus']} | {r['12_plus']} | {r['11_plus']} | {r['mean_best']} | {r['median_best']} | {r['std_best']} | {r['min_best']} | {r['max_best']} |\n")
-        f.write("\nO holdout final (3033-3791) e avaliacao fora da amostra.\n")
+        f.write(f"\nO holdout final (3033-{rows[-1][0]}) e avaliacao fora da amostra.\n")
 
 if __name__=="__main__":
     main()
