@@ -17,10 +17,10 @@ jobs:
         with:
           python-version: "3.11"
       - name: Generate frozen portfolio using only past contests
-        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target 3808 --out results/frozen --seed 20261019 --candidates 300
+        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$(( $(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1) + 1 )) --out results/frozen --seed 20261019 --candidates 300
       - name: Upload immutable pre-draw record
         uses: actions/upload-artifact@v4
         with:
-          name: portfolio-concurso-3808-congelado
-          path: results/frozen/concurso_3808_congelado.json
+          name: portfolio-proximo-concurso
+          path: results/frozen/concurso_*.json
           if-no-files-found: error
