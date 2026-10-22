@@ -23,8 +23,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Detectar ultimo concurso do histórico
-        run: echo "HOLDOUT_END=$(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1)" >> "$GITHUB_ENV"
+      - name: Detectar intervalo do histórico
+        run: |
+          echo "HOLDOUT_END=$(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1)" >> "$GITHUB_ENV"
+          echo "TARGET_CONTEST=$(( $(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1) + 1 ))" >> "$GITHUB_ENV"
       - run: python src/v6_probabilistic.py --csv data/lotofacil.csv --out results/v6 --holdout-end "$HOLDOUT_END"
       - run: python src/v6_stability.py --csv data/lotofacil.csv --out results/v6 --holdout-end "$HOLDOUT_END" --seeds 2
       - run: python src/v7_1_optimized.py --csv data/lotofacil.csv --out results/v7_1 --holdout-end "$HOLDOUT_END"
@@ -41,10 +43,10 @@ jobs:
       - run: cat results/v8/v8_report.json
       - run: cat results/v8/v8_stability.json
       - name: Congelar portfólios para o próximo concurso
-        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$((HOLDOUT_END + 1))" --out results/frozen --seed 20261019 --candidates 300
+        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$TARGET_CONTEST" --out results/frozen --seed 20261019 --candidates 300
       - name: Salvar portfólios congelados como artefato
         uses: actions/upload-artifact@v4
         with:
           name: portfolio-proximo-concurso
-          path: results/frozen/concurso_${{ env.HOLDOUT_END }}_congelado.json
+          path: results/frozen/concurso_${{ env.TARGET_CONTEST }}_congelado.json
           if-no-files-found: error
