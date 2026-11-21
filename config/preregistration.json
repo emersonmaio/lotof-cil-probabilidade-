@@ -1,0 +1,15 @@
+{
+  "registrado_em": "2026-11-20",
+  "regra": "Esta lista é fixada ANTES de qualquer concurso prospectivo ser pontuado e não pode ser alterada depois. Mudanças exigem novo arquivo (preregistration_v2.json) valendo só para concursos congelados depois do commit que o cria.",
+  "bracos_primarios": ["V6-A", "V7-C", "V8-V7-D"],
+  "criterio_de_escolha_dos_primarios": "Configuração escolhida com mais frequência pela regra de validação (2275-3032, sem usar o holdout) nas 5 sementes de results/compare; empate: ordem alfabética (V6: A e B empatam com 2).",
+  "controles": ["ALEATORIO", "DIVERSIFICADO"],
+  "bracos_exploratorios": "todos os demais portfólios do registro congelado; reportados, mas nunca usados como evidência",
+  "desfecho_primario": "média de (melhor jogo - E_H0) por concurso, onde E_H0 é o valor esperado do melhor jogo daquele portfólio sob sorteio uniforme (src/compare_models.py: null_stats)",
+  "minimo_de_concursos_prospectivos": 100,
+  "familia_de_testes": 3,
+  "alfa_familia": 0.05,
+  "limiar_z_bonferroni": 2.128,
+  "regra_de_decisao": "Só se conclui algo com >= 100 concursos prospectivos pontuados. Um braço primário é 'promissor' se Z >= 2,128 (unilateral, Bonferroni sobre 3 braços) E a diferença for positiva em mais da metade dos blocos de 25 concursos. Caso contrário registra-se 'sem vantagem demonstrada'. Controles servem de calibração: Z do controle fora de ±2,128 indica problema de método, não de modelo.",
+  "proibido": ["escolher o braço com melhor resultado depois de ver os resultados", "regerar ou editar registros congelados", "pontuar concurso cujo registro tenha prospective=false"]
+}
