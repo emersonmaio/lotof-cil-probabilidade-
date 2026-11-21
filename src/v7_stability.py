@@ -14,11 +14,12 @@ def main():
     p.add_argument("--validation-start", type=int, default=2275)
     p.add_argument("--validation-end", type=int, default=3032)
     p.add_argument("--holdout-start", type=int, default=3033)
-    p.add_argument("--holdout-end", type=int, default=3794)
+    p.add_argument("--holdout-end",type=int,default=None)
     p.add_argument("--seeds", type=int, default=5)
     p.add_argument("--seed-base", type=int, default=20261002)
     a = p.parse_args()
     rows = load(a.csv)
+    a.holdout_end = a.holdout_end or rows[-1][0]
     records = []
     for i in range(a.seeds):
         seed = a.seed_base + i * 1009

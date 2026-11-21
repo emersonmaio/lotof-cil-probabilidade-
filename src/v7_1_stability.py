@@ -7,10 +7,10 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument("--csv",required=True); p.add_argument("--out",default="results/v7_1")
     p.add_argument("--validation-start",type=int,default=2275); p.add_argument("--validation-end",type=int,default=3032)
-    p.add_argument("--holdout-start",type=int,default=3033); p.add_argument("--holdout-end",type=int,default=3794)
+    p.add_argument("--holdout-start",type=int,default=3033); p.add_argument("--holdout-end",type=int,default=None)
     p.add_argument("--seeds",type=int,default=5); p.add_argument("--seed-base",type=int,default=20261002)
     p.add_argument("--candidates",type=int,default=220)
-    a=p.parse_args(); rows=load(a.csv); Path(a.out).mkdir(parents=True,exist_ok=True)
+    a=p.parse_args(); rows=load(a.csv); a.holdout_end=a.holdout_end or rows[-1][0]; Path(a.out).mkdir(parents=True,exist_ok=True)
     states=build_states(rows,a.validation_start,a.holdout_end); records=[]
     for i in range(a.seeds):
         seed=a.seed_base+i*1009
