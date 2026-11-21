@@ -1,0 +1,183 @@
+{
+  "csv_sha256": "d40eaac7f7c5234cf1d31f722142cabd7b3ce3b03def29d31d45d57531ff3ca4",
+  "concursos": 3810,
+  "concursos_com_ordem_de_sorteio": 3787,
+  "reps": 2000,
+  "seed": 20261119,
+  "resultados": [
+    {
+      "teste": "T1_uniformidade_frequencias",
+      "estatistica": 23.9256,
+      "sim_mediana": 9.5976,
+      "sim_p95": 15.5625,
+      "p_mc": 0.0005,
+      "p_holm": 0.005,
+      "rejeita_H0_5pct": true
+    },
+    {
+      "teste": "T2_repeticao_consecutiva",
+      "estatistica": 1.5393,
+      "sim_mediana": 0.8345,
+      "sim_p95": 2.3016,
+      "p_mc": 0.2129,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T3_dependencia_lag1",
+      "estatistica": 8.2787,
+      "sim_mediana": 9.8853,
+      "sim_p95": 15.1028,
+      "p_mc": 0.7241,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T4_atraso",
+      "estatistica": 10.5754,
+      "sim_mediana": 3.4241,
+      "sim_p95": 9.8599,
+      "p_mc": 0.0385,
+      "p_holm": 0.3465,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T5a_soma_media",
+      "estatistica": 0.3891,
+      "sim_mediana": 0.7041,
+      "sim_p95": 1.97,
+      "p_mc": 0.7156,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T5b_soma_variancia",
+      "estatistica": 0.0219,
+      "sim_mediana": 0.0147,
+      "sim_p95": 0.0414,
+      "p_mc": 0.3158,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T6_paridade",
+      "estatistica": 2.677,
+      "sim_mediana": 6.2607,
+      "sim_p95": 14.0429,
+      "p_mc": 0.913,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T7_coocorrencia_pares",
+      "estatistica": 45.1916,
+      "sim_mediana": 48.8526,
+      "sim_p95": 56.2866,
+      "p_mc": 0.8296,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T8_posicoes",
+      "estatistica": 365.8674,
+      "sim_mediana": 359.6818,
+      "sim_p95": 406.6834,
+      "p_mc": 0.4058,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    },
+    {
+      "teste": "T9_primeira_bola",
+      "estatistica": 20.2551,
+      "sim_mediana": 23.5228,
+      "sim_p95": 35.8763,
+      "p_mc": 0.6902,
+      "p_holm": 1.0,
+      "rejeita_H0_5pct": false
+    }
+  ],
+  "nota": "p_mc com R=2000 tem resolução mínima 0.0005; Holm sobre 10 testes.",
+  "exploratorio": {
+    "T1_por_periodo": [
+      {
+        "periodo": "1-1000",
+        "estatistica": 11.23,
+        "sim_mediana": 9.99,
+        "p_mc": 0.3466
+      },
+      {
+        "periodo": "1001-2000",
+        "estatistica": 13.33,
+        "sim_mediana": 10.12,
+        "p_mc": 0.1222
+      },
+      {
+        "periodo": "2001-3000",
+        "estatistica": 24.26,
+        "sim_mediana": 9.82,
+        "p_mc": 0.0025
+      },
+      {
+        "periodo": "3001-3810",
+        "estatistica": 9.55,
+        "sim_mediana": 9.6,
+        "p_mc": 0.5112
+      }
+    ],
+    "frequencia_pct_dezenas_1_a_25": [
+      60.66,
+      59.76,
+      60.31,
+      60.5,
+      60.26,
+      58.85,
+      59.11,
+      58.01,
+      59.69,
+      62.05,
+      61.57,
+      60.13,
+      60.87,
+      60.47,
+      59.82,
+      57.17,
+      58.66,
+      59.4,
+      59.69,
+      62.36,
+      59.48,
+      59.58,
+      58.74,
+      60.81,
+      62.07
+    ],
+    "z_vs_60pct": [
+      0.83,
+      -0.3,
+      0.39,
+      0.63,
+      0.33,
+      -1.45,
+      -1.12,
+      -2.51,
+      -0.39,
+      2.58,
+      1.98,
+      0.16,
+      1.1,
+      0.59,
+      -0.23,
+      -3.57,
+      -1.69,
+      -0.76,
+      -0.39,
+      2.97,
+      -0.66,
+      -0.53,
+      -1.59,
+      1.02,
+      2.61
+    ],
+    "aviso": "Exploratório e post hoc: serve para descrever onde está a não-uniformidade, não para inferência."
+  }
+}

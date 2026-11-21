@@ -1,12 +1,26 @@
 name: Freeze prospective Lotofacil portfolio
 
+# Único workflow responsável por congelar portfólios (v6.yml não congela mais) e por pontuar,
+# quando o resultado entra no CSV, o registro congelado do concurso anterior.
+# O registro é commitado em results/frozen/ e listado em MANIFEST.jsonl (append-only),
+# de modo que a história do git prove a data do congelamento. Arquivos já congelados
+# nunca são sobrescritos (src/freeze_portfolio.py recusa) e o job falha se o hash de
+# algum registro existente mudar.
 on:
   workflow_dispatch:
   push:
+    branches: [main]      # nunca congelar em branch de trabalho: o registro só vale se for para a main
     paths:
-      - "src/freeze_portfolio.py"
       - "data/lotofacil.csv"
+      - "src/freeze_portfolio.py"
       - ".github/workflows/freeze-portfolio.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: freeze-portfolio
+  cancel-in-progress: false
 
 jobs:
   freeze:
@@ -16,11 +30,45 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - name: Detectar próximo concurso
+      - name: Install test dependencies
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
+      - name: Run fast tests (data integrity, leakage, freeze rules)
+        run: python -m pytest -q -m "not slow"
+      - name: Verify existing frozen records are untouched
+        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target 1 --out results/frozen --verify-only
+      - name: Detect target contest
         run: echo "TARGET_CONTEST=$(( $(tail -n +2 data/lotofacil.csv | tail -n 1 | cut -d, -f1) + 1 ))" >> "$GITHUB_ENV"
-      - name: Generate frozen portfolio using only past contests
-        run: python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$TARGET_CONTEST" --out results/frozen --seed 20261019 --candidates 300
-      - name: Upload immutable pre-draw record
+      - name: Score the previous frozen record (result just added to the CSV)
+        run: |
+          LAST=$(( TARGET_CONTEST - 1 ))
+          if [ -f "results/frozen/concurso_${LAST}_congelado.json" ] && ! grep -q "\"contest\": ${LAST}," results/prospective/LOG.jsonl 2>/dev/null; then
+            python src/score_frozen.py --csv data/lotofacil.csv --contest "$LAST"
+          else
+            echo "Nada a pontuar para o concurso ${LAST}."
+          fi
+      - name: Generate frozen portfolio (history strictly before target)
+        id: freeze
+        run: |
+          if ls results/frozen/concurso_${TARGET_CONTEST}_congelado*.json >/dev/null 2>&1; then
+            echo "Registro do concurso ${TARGET_CONTEST} já existe; nada a fazer."
+            echo "created=false" >> "$GITHUB_OUTPUT"
+          else
+            python src/freeze_portfolio.py --csv data/lotofacil.csv --target "$TARGET_CONTEST" --out results/frozen --seed 20261019 --candidates 300
+            echo "created=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Commit frozen record and prospective score (timestamp proof)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add results/frozen results/prospective
+          if git diff --cached --quiet; then
+            echo "Nada novo para commitar."
+          else
+            git commit -m "chore: registro prospectivo (alvo ${TARGET_CONTEST})"
+            git push
+          fi
+      - name: Upload pre-draw record
+        if: steps.freeze.outputs.created == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: portfolio-proximo-concurso
