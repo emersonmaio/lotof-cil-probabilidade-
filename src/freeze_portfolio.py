@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 import diversified
+import optimized_structure
 from data_io import load_history, sha256_file
 from v6_probabilistic import CONFIGS as V6_CONFIGS, portfolio as v6_portfolio
 from v7_1_optimized import CONFIGS as V7_CONFIGS, prefix_state, score_state, portfolio as v7_portfolio
@@ -55,6 +56,7 @@ def generate_games(rows, seed, v8_candidates):
     games["ALEATORIO"] = random_games
     # controle adicionado DEPOIS do aleatório: não altera o consumo de RNG dos portfólios anteriores
     games["DIVERSIFICADO"] = [diversified.mask_to_game(m) for m in diversified.choose(rng)]
+    games["OTIMIZADO"] = [diversified.mask_to_game(m) for m in optimized_structure.choose(rng)]
     return games
 
 

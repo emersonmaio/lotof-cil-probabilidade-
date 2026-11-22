@@ -28,7 +28,7 @@ def test_record_is_prospective_and_complete(truncated_csv):
     assert rec["history_through"] == 3500 and rec["target_contest"] == 3501
     assert rec["data_sha256"] == data_io.sha256_file(truncated_csv)
     assert set(rec["games"]) == {"V6-A", "V6-B", "V6-C", "V6-D", "V7-A", "V7-B", "V7-C", "V7-D",
-                                 "V8-V7-A", "V8-V7-B", "V8-V7-C", "V8-V7-D", "ALEATORIO", "DIVERSIFICADO"}
+                                 "V8-V7-A", "V8-V7-B", "V8-V7-C", "V8-V7-D", "ALEATORIO", "DIVERSIFICADO", "OTIMIZADO"}
     for name, games in rec["games"].items():
         assert len(games) == 10 and len({tuple(g) for g in games}) == 10, name
 

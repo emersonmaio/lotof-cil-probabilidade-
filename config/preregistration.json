@@ -3,7 +3,7 @@
   "regra": "Esta lista é fixada ANTES de qualquer concurso prospectivo ser pontuado e não pode ser alterada depois. Mudanças exigem novo arquivo (preregistration_v2.json) valendo só para concursos congelados depois do commit que o cria.",
   "bracos_primarios": ["V6-A", "V7-C", "V8-V7-D"],
   "criterio_de_escolha_dos_primarios": "Configuração escolhida com mais frequência pela regra de validação (2275-3032, sem usar o holdout) nas 5 sementes de results/compare; empate: ordem alfabética (V6: A e B empatam com 2).",
-  "controles": ["ALEATORIO", "DIVERSIFICADO"],
+  "controles": ["ALEATORIO", "DIVERSIFICADO", "OTIMIZADO"],
   "bracos_exploratorios": "todos os demais portfólios do registro congelado; reportados, mas nunca usados como evidência",
   "desfecho_primario": "média de (melhor jogo - E_H0) por concurso, onde E_H0 é o valor esperado do melhor jogo daquele portfólio sob sorteio uniforme (src/compare_models.py: null_stats)",
   "minimo_de_concursos_prospectivos": 100,
