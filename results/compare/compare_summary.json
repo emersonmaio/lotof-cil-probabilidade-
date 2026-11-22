@@ -1,0 +1,136 @@
+{
+  "csv_sha256": "d40eaac7f7c5234cf1d31f722142cabd7b3ce3b03def29d31d45d57531ff3ca4",
+  "holdout": [
+    3033,
+    3810
+  ],
+  "validation": [
+    2275,
+    3032
+  ],
+  "seeds": 5,
+  "null_draws": 4000,
+  "candidates_v8": 300,
+  "models": {
+    "V6": {
+      "selected_counts": {
+        "V6-A": 2,
+        "V6-C": 1,
+        "V6-B": 2
+      },
+      "mean_best_avg": 10.932905,
+      "mean_best_seed_sd": 0.024148,
+      "null_mean_best_avg": 10.923523,
+      "diff_avg": 0.009382,
+      "diff_seed_sd": 0.024395,
+      "se_avg": 0.024856,
+      "z_per_seed": [
+        -1.477,
+        0.89,
+        1.212,
+        0.253,
+        1.008
+      ],
+      "13_plus_obs_avg": 13,
+      "13_plus_expected_avg": 11.59,
+      "13_plus_z_avg": 0.418,
+      "blocks_positive_avg": 4,
+      "blocks_total": 8
+    },
+    "V7.1": {
+      "selected_counts": {
+        "V7-A": 1,
+        "V7-D": 1,
+        "V7-C": 3
+      },
+      "mean_best_avg": 10.919537,
+      "mean_best_seed_sd": 0.025404,
+      "null_mean_best_avg": 10.923002,
+      "diff_avg": -0.003465,
+      "diff_seed_sd": 0.024225,
+      "se_avg": 0.024858,
+      "z_per_seed": [
+        -0.631,
+        0.87,
+        0.549,
+        -1.808,
+        0.328
+      ],
+      "13_plus_obs_avg": 10.6,
+      "13_plus_expected_avg": 11.59,
+      "13_plus_z_avg": -0.292,
+      "blocks_positive_avg": 3.4,
+      "blocks_total": 8
+    },
+    "V8": {
+      "selected_counts": {
+        "V7-A": 1,
+        "V7-D": 4
+      },
+      "mean_best_avg": 10.920566,
+      "mean_best_seed_sd": 0.028434,
+      "null_mean_best_avg": 10.922941,
+      "diff_avg": -0.002376,
+      "diff_seed_sd": 0.029384,
+      "se_avg": 0.024843,
+      "z_per_seed": [
+        1.61,
+        -1.731,
+        -0.554,
+        0.843,
+        -0.652
+      ],
+      "13_plus_obs_avg": 11.8,
+      "13_plus_expected_avg": 11.54,
+      "13_plus_z_avg": 0.078,
+      "blocks_positive_avg": 3.8,
+      "blocks_total": 8
+    },
+    "RANDOM": {
+      "selected_counts": {
+        "null": 5
+      },
+      "mean_best_avg": 10.830334,
+      "mean_best_seed_sd": 0.030977,
+      "null_mean_best_avg": 10.83982,
+      "diff_avg": -0.009485,
+      "diff_seed_sd": 0.03064,
+      "se_avg": 0.026905,
+      "z_per_seed": [
+        -1.637,
+        1.437,
+        -0.066,
+        -1.532,
+        0.037
+      ],
+      "13_plus_obs_avg": 10.8,
+      "13_plus_expected_avg": 11.51,
+      "13_plus_z_avg": -0.21,
+      "blocks_positive_avg": 3.2,
+      "blocks_total": 8
+    },
+    "DIVERSIFIED": {
+      "selected_counts": {
+        "null": 5
+      },
+      "mean_best_avg": 10.918509,
+      "mean_best_seed_sd": 0.022212,
+      "null_mean_best_avg": 10.92716,
+      "diff_avg": -0.008651,
+      "diff_seed_sd": 0.02225,
+      "se_avg": 0.024784,
+      "z_per_seed": [
+        -0.281,
+        0.393,
+        -1.885,
+        -0.639,
+        0.665
+      ],
+      "13_plus_obs_avg": 11,
+      "13_plus_expected_avg": 11.59,
+      "13_plus_z_avg": -0.176,
+      "blocks_positive_avg": 4,
+      "blocks_total": 8
+    }
+  }
+}

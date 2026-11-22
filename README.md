@@ -6,7 +6,7 @@ Projeto de experimentação para avaliar, sem olhar o resultado futuro, estraté
 Medir média do melhor jogo, média dos 10 jogos e frequência de 11, 12, 13, 14 e 15 acertos. Isto testa hipóteses; não implica previsão de sorteios aleatórios.
 
 ## Dados
-A base de trabalho foi atualizada até o concurso **3794 (01/10/2026)**. O próximo concurso deve ser tratado como desconhecido até o resultado oficial estar disponível.
+A base de trabalho está até o concurso **3810 (21/10/2026)**. Em 19/11/2026 o concurso 3827 (11/11) já havia sido sorteado, portanto a base está defasada: atualize o CSV com os resultados oficiais antes de congelar qualquer portfólio (o script de congelamento recusa histórico velho). O próximo concurso deve ser tratado como desconhecido até o resultado oficial estar disponível.
 
 Fonte oficial CAIXA:
 https://loterias.caixa.gov.br/Paginas/LOTOFACIL.aspx
@@ -24,8 +24,8 @@ Coloque o CSV em `data/lotofacil.csv`, mantendo o cabeçalho com concurso, data 
 ## Backtest
 O concurso-alvo nunca entra na construção dos jogos. Exemplo: para avaliar t, somente concursos < t são usados.
 
-Validação V6: 2275–3032.
-Holdout V6: 3033–3794.
+Validação: 2275–3032.
+Holdout: 3033 até o último concurso da base (padrão dinâmico). Atenção: como V6/V7/V7.1/V8 foram desenvolvidas depois de observar esse intervalo, ele não é um holdout independente (ver `docs/TESTE.md` e `docs/AUDITORIA_2026-11-19.md`).
 
 A seleção da configuração ocorre exclusivamente na validação. O holdout é usado apenas depois para medir desempenho fora da amostra.
 
@@ -50,3 +50,14 @@ Um registro pré-sorteio armazenado não deve ser regenerado depois que o result
 
 ## Status
 V6 é uma hipótese experimental. Resultados históricos fora da amostra não garantem desempenho futuro e não devem ser tratados como previsão de sorteios.
+
+## Testes e auditoria
+- `python -m pytest -q -m "not slow"` — dados, vazamento temporal, determinismo, baseline, congelamento, workflows.
+- `python src/compare_models.py --csv data/lotofacil.csv --out results/compare` — V6, V7.1, V8 e aleatório sob as mesmas condições, com teste contra a hipótese nula.
+- `python src/randomness_audit.py --csv data/lotofacil.csv` — testes de aleatoriedade do histórico (Monte Carlo + Holm).
+- `python src/hypotheses_test.py --csv data/lotofacil.csv` — 11 regras pré-definidas, teste walk-forward com Bonferroni.
+- `python src/append_result.py ...` e `python src/score_frozen.py ...` — ciclo prospectivo (ver `docs/GUIA_GITHUB.md`).
+- Auditoria e diagnóstico: `docs/AUDITORIA_2026-11-19.md` (ciclo 1) e `docs/AUDITORIA_CICLO2.md` (ciclo 2).
+- Onde colocar cada coisa no GitHub e rotina por concurso: `docs/GUIA_GITHUB.md`.
+- Pré-registro da avaliação prospectiva: `config/preregistration.json`.
+- Portfólios congelados ficam em `results/frozen/` com `MANIFEST.jsonl` (SHA-256); nunca são regenerados.

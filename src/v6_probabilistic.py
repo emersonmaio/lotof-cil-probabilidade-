@@ -67,9 +67,9 @@ def metrics(v):
 def main():
  p=argparse.ArgumentParser(); p.add_argument("--csv",required=True); p.add_argument("--out",default="results/v6")
  p.add_argument("--validation-start",type=int,default=2275); p.add_argument("--validation-end",type=int,default=3032)
- p.add_argument("--holdout-start",type=int,default=3033); p.add_argument("--holdout-end",type=int,default=3794)
+ p.add_argument("--holdout-start",type=int,default=3033); p.add_argument("--holdout-end",type=int,default=None)
  p.add_argument("--seed",type=int,default=20261002); a=p.parse_args()
- rows=load(a.csv); Path(a.out).mkdir(parents=True,exist_ok=True)
+ rows=load(a.csv); a.holdout_end=a.holdout_end or rows[-1][0]; Path(a.out).mkdir(parents=True,exist_ok=True)
  validation={k:metrics(evaluate(rows,a.validation_start,a.validation_end,k,a.seed)) for k in CONFIGS}
  selected=max(CONFIGS,key=lambda k:(validation[k]["13_plus"],validation[k]["mean_best"]))
  holdout=metrics(evaluate(rows,a.holdout_start,a.holdout_end,selected,a.seed+1000))

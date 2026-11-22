@@ -1,0 +1,296 @@
+{
+  "csv_sha256": "d40eaac7f7c5234cf1d31f722142cabd7b3ce3b03def29d31d45d57531ff3ca4",
+  "concursos": 3810,
+  "warmup": 300,
+  "bonferroni_alpha": 0.00455,
+  "K": 11,
+  "resultados": [
+    {
+      "hipotese": "freq_5",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 9.0046,
+        "diff_vs_9": 0.0046,
+        "se": 0.0207,
+        "z": 0.221
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.9956,
+        "diff_vs_9": -0.0044,
+        "se": 0.0234,
+        "z": -0.187
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.036,
+        "diff_vs_9": 0.036,
+        "se": 0.0439,
+        "z": 0.82
+      },
+      "p_bilateral_todos": 0.82509,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "freq_10",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 8.9718,
+        "diff_vs_9": -0.0282,
+        "se": 0.0207,
+        "z": -1.364
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.9634,
+        "diff_vs_9": -0.0366,
+        "se": 0.0234,
+        "z": -1.562
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0013,
+        "diff_vs_9": 0.0013,
+        "se": 0.0439,
+        "z": 0.029
+      },
+      "p_bilateral_todos": 0.17257,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "freq_20",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 8.9929,
+        "diff_vs_9": -0.0071,
+        "se": 0.0207,
+        "z": -0.345
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.974,
+        "diff_vs_9": -0.026,
+        "se": 0.0234,
+        "z": -1.109
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0591,
+        "diff_vs_9": 0.0591,
+        "se": 0.0439,
+        "z": 1.347
+      },
+      "p_bilateral_todos": 0.73009,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "freq_50",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 9.0114,
+        "diff_vs_9": 0.0114,
+        "se": 0.0207,
+        "z": 0.551
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 9.0161,
+        "diff_vs_9": 0.0161,
+        "se": 0.0234,
+        "z": 0.687
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 8.9949,
+        "diff_vs_9": -0.0051,
+        "se": 0.0439,
+        "z": -0.117
+      },
+      "p_bilateral_todos": 0.58163,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "freq_100",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 9.0131,
+        "diff_vs_9": 0.0131,
+        "se": 0.0207,
+        "z": 0.634
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 9.0165,
+        "diff_vs_9": 0.0165,
+        "se": 0.0234,
+        "z": 0.703
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0013,
+        "diff_vs_9": 0.0013,
+        "se": 0.0439,
+        "z": 0.029
+      },
+      "p_bilateral_todos": 0.52608,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "freq_200",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 9.0071,
+        "diff_vs_9": 0.0071,
+        "se": 0.0207,
+        "z": 0.345
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 9.0227,
+        "diff_vs_9": 0.0227,
+        "se": 0.0234,
+        "z": 0.969
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 8.9524,
+        "diff_vs_9": -0.0476,
+        "se": 0.0439,
+        "z": -1.083
+      },
+      "p_bilateral_todos": 0.73009,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "freq_all",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 9.0325,
+        "diff_vs_9": 0.0325,
+        "se": 0.0207,
+        "z": 1.571
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 9.026,
+        "diff_vs_9": 0.026,
+        "se": 0.0234,
+        "z": 1.109
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0553,
+        "diff_vs_9": 0.0553,
+        "se": 0.0439,
+        "z": 1.259
+      },
+      "p_bilateral_todos": 0.11618,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "cold_20",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 8.9866,
+        "diff_vs_9": -0.0134,
+        "se": 0.0207,
+        "z": -0.648
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.9817,
+        "diff_vs_9": -0.0183,
+        "se": 0.0234,
+        "z": -0.781
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0039,
+        "diff_vs_9": 0.0039,
+        "se": 0.0439,
+        "z": 0.088
+      },
+      "p_bilateral_todos": 0.51698,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "cold_100",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 8.9846,
+        "diff_vs_9": -0.0154,
+        "se": 0.0207,
+        "z": -0.744
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.974,
+        "diff_vs_9": -0.026,
+        "se": 0.0234,
+        "z": -1.109
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0219,
+        "diff_vs_9": 0.0219,
+        "se": 0.0439,
+        "z": 0.498
+      },
+      "p_bilateral_todos": 0.45688,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "overdue",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 8.9977,
+        "diff_vs_9": -0.0023,
+        "se": 0.0207,
+        "z": -0.11
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.9978,
+        "diff_vs_9": -0.0022,
+        "se": 0.0234,
+        "z": -0.094
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 8.9974,
+        "diff_vs_9": -0.0026,
+        "se": 0.0439,
+        "z": -0.059
+      },
+      "p_bilateral_todos": 0.91241,
+      "rejeita_H0_bonferroni": false
+    },
+    {
+      "hipotese": "repeat_prev",
+      "todos": {
+        "n": 3510,
+        "mean_hits": 8.9704,
+        "diff_vs_9": -0.0296,
+        "se": 0.0207,
+        "z": -1.433
+      },
+      "desenvolvimento": {
+        "n": 2732,
+        "mean_hits": 8.9586,
+        "diff_vs_9": -0.0414,
+        "se": 0.0234,
+        "z": -1.765
+      },
+      "holdout": {
+        "n": 778,
+        "mean_hits": 9.0116,
+        "diff_vs_9": 0.0116,
+        "se": 0.0439,
+        "z": 0.263
+      },
+      "p_bilateral_todos": 0.15186,
+      "rejeita_H0_bonferroni": false
+    }
+  ],
+  "nota": "Z>0 = a regra acerta mais que o acaso. Efeito detectável com 80% de poder após Bonferroni (n~3500): ~0,08 acerto no bilhete."
+}

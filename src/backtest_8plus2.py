@@ -3,18 +3,18 @@ import argparse,csv,random
 from collections import Counter
 from pathlib import Path
 
+from data_io import load_history
+
 N=range(1,26); K=15
 
 def load(p):
-    with open(p,encoding="utf-8",newline="") as f:
-        r=csv.DictReader(f,delimiter=";"); rows=[]
-        for x in r:
-            d=tuple(sorted(map(int,x["dezenas"].split())))
-            if len(d)!=15 or len(set(d))!=15 or not all(1<=n<=25 for n in d): raise ValueError(x)
-            rows.append((int(x["concurso"]),d))
-    rows.sort()
-    if rows and [x[0] for x in rows]!=list(range(1,rows[-1][0]+1)): raise ValueError("missing contest")
-    return rows
+    """Lê o CSV oficial do repositório (data/lotofacil.csv) com validação estrita.
+
+    Antes esta função esperava outro formato (separador ';' e coluna 'dezenas') e só
+    funcionava sobre um arquivo baixado de site de terceiros que o workflow
+    full-backtest.yml gravava por cima de data/lotofacil.csv (ver docs/AUDITORIA_2026-11-19.md).
+    """
+    return [(c, d) for c, d, _ in load_history(p)]
 
 def weighted(w,k,rng):
     a=dict(w); out=[]

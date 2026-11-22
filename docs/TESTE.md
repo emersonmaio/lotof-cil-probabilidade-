@@ -1,1 +1,35 @@
-# Protocolo de teste\n\n## Base\nO arquivo data/lotofacil.csv.gz e a copia comprimida do historico enviado para este projeto. O script valida 15 dezenas unicas entre 01 e 25 e a sequencia dos concursos.\n\n## Separacao temporal\n- Treino implicito: tudo anterior ao concurso avaliado.\n- Validacao: 2275-3032.\n- Holdout final: 3033-3791.\n\nO resultado do concurso-alvo nunca e usado para montar os jogos daquele concurso.\n\n## Comparacao\nTodas as estrategias sao avaliadas com exatamente 10 jogos por concurso:\n- random10: baseline aleatorio.\n- freq8_cov2: 8 jogos por frequencia + 2 complementares por cobertura.\n- blend8_cov2: frequencia + recencia + cobertura.\n- freq8_inv2: frequencia + 2 complementares por inversao de frequencia.\n- blend8_inv2: combinacao frequencia/recencia + inversao.\n\nA metrica principal para o objetivo do projeto e a quantidade de concursos com 13+, depois 12+, 11+ e os demais indicadores. A media e registrada como metrica auxiliar.\n\n## Criterio\nUma estrategia nao sera considerada robusta por apresentar um pico isolado. Ela precisa mostrar comportamento consistente fora da amostra e ser comparada ao baseline com o mesmo numero de jogos.
+# Protocolo de teste
+
+## Base
+`data/lotofacil.csv` é a base de trabalho (cabeçalho `Concurso,Data,bola 1..bola 15`). Os scripts validam
+15 dezenas únicas entre 01 e 25 e a continuidade dos concursos (1..N sem lacunas). A validação central está em
+`src/data_io.py` e é coberta por `tests/test_data_integrity.py`.
+
+## Separação temporal
+- Treino implícito: tudo anterior ao concurso avaliado.
+- Validação: 2275-3032.
+- Holdout: 3033 até o último concurso da base (calculado dinamicamente).
+
+O resultado do concurso-alvo nunca é usado para montar os jogos daquele concurso.
+
+> Atenção: o intervalo 3033-3794 foi observado durante o desenvolvimento de V6, V7, V7.1 e V8 (as versões
+> foram criadas depois de ver resultados nesse intervalo). Por isso ele **não é mais um holdout independente
+> para essas versões**; a única evidência realmente independente é a avaliação prospectiva congelada.
+
+## Comparação
+Todas as estratégias são avaliadas com exatamente 10 jogos por concurso:
+- random10: baseline aleatório.
+- freq8_cov2: 8 jogos por frequência + 2 complementares por cobertura.
+- blend8_cov2: frequência + recência + cobertura.
+- freq8_inv2: frequência + 2 complementares por inversão de frequência.
+- blend8_inv2: combinação frequência/recência + inversão.
+
+Métricas: concursos com 13+, 12+, 11+ e demais indicadores; média do melhor jogo como auxiliar.
+A comparação com o acaso usa `src/compare_models.py` (teste pareado contra a hipótese nula, por portfólio).
+
+## Critério
+Uma estratégia não será considerada robusta por apresentar um pico isolado. Ela precisa mostrar comportamento
+consistente fora da amostra e ser comparada ao baseline com o mesmo número de jogos.
+
+## Como rodar os testes
+`python -m pytest -q -m "not slow"`
